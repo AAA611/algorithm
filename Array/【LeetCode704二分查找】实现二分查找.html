@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <script>
+      // tag:双指针
+      function search(nums, target) {
+        // 二分查找就是通过不断地缩小范围来实现更高效的查找算法
+        // 定义两个指针用来标识一个范围，一个target可能存在的范围
+        let left = 0
+        let right = nums.length - 1
+        while (left <= right) {
+          // 找出当前范围的中间索引值，注意这个索引是相对于整个数组的而不是当前要查找的范围，所以最后要加上left的值
+          const midIndex = Math.floor((right - left) / 2) + left
+          const num = nums[midIndex]
+          if (num === target) {
+            return midIndex
+          } else if (num < target) {
+            left = midIndex + 1
+          } else {
+            right = midIndex - 1
+          }
+        }
+
+        return -1
+      }
+
+      let nums = [1, 3, 4, 6, 7, 98]
+      console.log(search(nums, 6))
+
+      // 时间复杂度：O(n)
+      // 空间复杂度：O(1)
+    </script>
+  </body>
+</html>
