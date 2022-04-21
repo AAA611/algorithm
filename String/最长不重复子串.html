@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <script>
+      let s = 'abcdeabdbbnmcrt'
+      var lengthOfLongestSubstring = function (s) {
+        let left = 0
+        let right = 0
+        let map = Object.create(null)
+        let max = 0
+        while (right < s.length) {
+          if (map[s[right]] !== undefined) {
+            while (left <= map[s[right]]) {
+              map[s[left]] = undefined
+              left++
+            }
+            map[s[right]] = right
+          } else {
+            map[s[right]] = right
+          }
+          max = Math.max(max, right - left + 1)
+          right++
+        }
+        return Math.max(max, right - left)
+      }
+      console.log(lengthOfLongestSubstring('pwwkew'))
+
+      var lengthOfLongestSubstring1 = function (s) {
+        let left = 0
+        let right = 0
+        let map = new Map()
+        let max = 0
+        while (right < s.length) {
+          let leftVal = s[left]
+          let rightVal = s[right]
+          let mapVal = map.get(rightVal)
+
+          if (mapVal !== undefined) {
+            while (left <= mapVal) {
+              map.delete(leftVal)
+              left++
+            }
+            map.set(rightVal, right)
+          } else {
+            map.set(rightVal, right)
+          }
+          max = Math.max(max, right - left + 1)
+          right++
+        }
+        return Math.max(max, right - left)
+      }
+
+      console.log(lengthOfLongestSubstring1('abcbbcbb'))
+
+      var lengthOfLongestSubstring2 = function (s) {
+        let max = 0
+        let str = ''
+        for (let c of s) {
+          let index = str.indexOf(c)
+          if (index === -1) {
+            str += c
+          } else {
+            str = str.substring(index + 1) + c
+          }
+          max = Math.max(max, str.length)
+        }
+        return max
+      }
+      console.log(lengthOfLongestSubstring2('abcbbcbb'))
+    </script>
+  </body>
+</html>
