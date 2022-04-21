@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <script>
+      // 要求：不得使用额外的空间
+
+      // 思路：利用双指针法求解
+      var removeDuplicates = function (nums) {
+        let left = 0
+        let right = 1
+        while (right < nums.length) {
+          let c1 = nums[left]
+          let c2 = nums[right]
+          if (c1 === c2) {
+            nums.splice(left, 1)
+          } else {
+            left++
+            right++
+          }
+        }
+        return right
+      }
+      // 上面是我做的第一版，代码可以通过，但是耗时却很长，也许是当nums越来越长时频繁操作splice导致的吧
+      // 所以我做了一下优化，JavaScript提交超过了百分之92
+
+      // 由于是排序后的数组，所以重复项都在一起，优化的思路如下：
+      // 1.不要一遇到相同的就执行删除操作，继续往下比对，等到一个元素的重复个数全部找出来之后再执行splice进行一次删除多个的操作
+      var removeDuplicates = function (nums) {
+        let left = 0
+        let right = 1
+        while (right < nums.length) {
+          let c1 = nums[left]
+          let c2 = nums[right]
+          if (c1 === c2) {
+            right++
+          } else {
+            if (right - left > 1) {
+              let c = right - left - 1
+              nums.splice(left, c)
+              right -= c
+              left = right - 1
+            } else {
+              left++
+              right++
+            }
+          }
+        }
+        if (right - left > 1) {
+          let c = right - left - 1
+          nums.splice(left, c)
+          right -= c
+          left = right - 1
+        }
+        return right
+      }
+      let arr = [1, 1]
+      console.log(removeDuplicates(arr))
+    </script>
+  </body>
+</html>
