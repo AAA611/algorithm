@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <script>
+      var rotate = function (nums, k) {
+        for (let i = 0; i < k; i++) {
+          nums.unshift(nums.pop())
+        }
+        return nums
+      }
+      var rotate1 = function (nums, k) {
+        let p1 = nums.length - 1
+        while (k) {
+          let c = nums[p1]
+          let p2 = p1
+          while (p2 > 0) {
+            nums[p2] = nums[p2 - 1]
+            p2--
+          }
+          nums[0] = c
+          k--
+        }
+        return nums
+      }
+
+      const reverse = (nums, start, end) => {
+        while (start < end) {
+          const temp = nums[start]
+          nums[start] = nums[end]
+          nums[end] = temp
+          start += 1
+          end -= 1
+        }
+      }
+
+      var rotate2 = function (nums, k) {
+        k %= nums.length
+        reverse(nums, 0, nums.length - 1)
+        console.log(nums);
+        reverse(nums, 0, k - 1)
+        console.log(nums);
+        reverse(nums, k, nums.length - 1)
+        console.log(nums);
+      }
+
+      console.log(rotate2([1, 2, 3, 4, 5, 6, 7], 3))
+      // console.log(rotate1([1, 2, 3, 4, 5, 6, 7], 2))
+    </script>
+  </body>
+</html>
