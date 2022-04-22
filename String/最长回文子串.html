@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <script>
+      // 方法1：
+      // 有三重循环遍历，耗时较长，耗空间较少
+      var longestPalindrome1 = function (s) {
+        if (s.length === 1) {
+          return s
+        }
+        let left
+        let right = (len = s.length - 1)
+        let res = ''
+        for (let i = 0; i < len; i++) {
+          left = i
+          right = len
+          while (left <= right) {
+            let innerLeft = left
+            let innerRight = right
+            let flag = true
+            while (innerLeft <= innerRight) {
+              if (s[innerLeft] !== s[innerRight]) {
+                flag = false
+                break
+              }
+              innerLeft++
+              innerRight--
+            }
+            if (flag && right - left + 1 > res.length) {
+              res = s.slice(left, right + 1)
+            }
+            right--
+          }
+        }
+        return res
+      }
+      // console.log(longestPalindrome('a'))
+
+      // 方法2：
+      // 以上方法较为复杂,以下做了耗时优化
+      let s = 'abcbad'
+      var longestPalindrome2 = function (s) {
+        // 最终的结果子串
+        let res = ''
+        // 当前子串
+        let cur = ''
+        for (let i = 0; i < s.length; i++) {
+          // 当前子串初始化为当前字符
+          cur = s[i]
+          // 首先用left保存当前遍历位置的前一个位置，因为下面会遍历连续字符
+          let left = i - 1
+          // 寻找与当前字符相同的字符，这里会对i进行累加操作，所以上面left应提前保存重复字符开始的前一个位置，方便后面向两边扩展寻找
+          while (s[i + 1] === s[i]) {
+            cur += s[i]
+            i++
+          }
+          // 用right标识重复子串结束的下一个位置
+          // 此时，left是重复子串的开始位置的上一个位置
+          // 而right则是重复子串结束的下一个位置
+          // 通过对比left位置处与right处的字符，如果相同则继续left--,right++向两边扩展
+          let right = i + 1
+          while (s[right] === s[left] && s[left] !== undefined) {
+            cur = `${s[left]}${cur}${s[right]}`
+            left--
+            right++
+          }
+          // 结束后要对比当前子串与上一个最长子串的长度来决定是否要更新最长字串
+          cur.length > res.length && (res = cur)
+        }
+        return res
+      }
+      console.log(longestPalindrome1('abcbad'))
+      console.log(longestPalindrome1('cbb'))
+      console.log(longestPalindrome1('bbbbbbbb'))
+      console.log(longestPalindrome1('a'))
+    </script>
+  </body>
+</html>
