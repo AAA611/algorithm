@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <script>
+      var longestCommonPrefix = function (strs) {
+        let indexs = [0]
+        let preIndex = 0
+        let prefix = ''
+        let minLen = strs[0].length
+        let minStrStartIndex = 0
+        for (let i = 1; i < strs.length; i++) {
+          let strLen = strs[i - 1].length
+          let currentLen = strs[i].length
+          let strStartIndex = preIndex + strLen
+          preIndex = strStartIndex
+          if (currentLen < minLen) {
+            minLen = currentLen
+            minStrStartIndex = strStartIndex
+          }
+          indexs.push(strStartIndex)
+        }
+        let left = minStrStartIndex
+        let s = strs.join('')
+        let c = 0
+        while (left < minStrStartIndex + minLen) {
+          if (indexs.some((index) => s[left] !== s[index + c])) {
+            break
+          } else {
+            prefix += s[left]
+          }
+          left++
+          c++
+        }
+        return prefix
+      }
+      // console.log(longestCommonPrefix(['dog', 'racecar', 'car']))
+
+      var longestCommonPrefix1 = function (strs) {
+        if (strs.length === 1) {
+          return strs[0]
+        }
+        let s = strs[0]
+        let prefix = s[0] || ''
+        let i = 0
+        strs.shift()
+        while (i < s.length) {
+          let matched = true
+          for (let c of strs) {
+            if (!c.startsWith(prefix)) {
+              matched = false
+              break
+            }
+          }
+          if (matched) {
+            if (s[i + 1] !== undefined) {
+              prefix += s[i + 1]
+            }
+          } else {
+            prefix = prefix.slice(0, prefix.length - 1)
+            break
+          }
+          i++
+        }
+        return prefix
+      }
+      console.log(longestCommonPrefix1(['', '', '']))
+    </script>
+  </body>
+</html>
