@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <script>
+      /**
+       * Definition for singly-linked list.
+       * function ListNode(val, next) {
+       *     this.val = (val===undefined ? 0 : val)
+       *     this.next = (next===undefined ? null : next)
+       * }
+       */
+      /**
+       * @param {ListNode[]} lists
+       * @return {ListNode}
+       */
+      var mergeKLists = function (lists) {
+        let vals = []
+        for (let i = 0; i < lists.length; i++) {
+          let cur = lists[i]
+          while (cur) {
+            vals.push(cur.val)
+            cur = cur.next
+          }
+        }
+        let sorted = vals.sort((a, b) => a - b)
+        let t = (tt = new ListNode(0))
+        for (let j = 0; j < sorted.length; j++) {
+          t.next = new ListNode(sorted[j])
+          t = t.next
+        }
+        t.next = null
+        return tt.next
+      }
+    </script>
+  </body>
+</html>
