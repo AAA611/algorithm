@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <script>
+      // 偶然间看到，听说是蚂蚁金服的面试题，就写了一下
+      class Flow {
+        constructor(flows) {
+          this.finalFlows = this.initFlows(flows)
+        }
+
+        initFlows(flows) {
+          let finalFlows = []
+          for (let i = 0; i < flows.length; i++) {
+            if (flows[i] instanceof Flow) {
+              finalFlows.push(flows[i].finalFlows)
+            } else {
+              finalFlows.push(flows[i])
+            }
+          }
+          return finalFlows.flat()
+        }
+
+        async run(done) {
+          for (let i = 0; i < this.finalFlows.length; i++) {
+            await this.finalFlows[i]?.()
+          }
+          done()
+        }
+      }
+
+      function createFlow(flows) {
+        return new Flow(flows)
+      }
+
+      // test
+      const delay = (ms) =>
+        new Promise((resolve, reject) => setTimeout(resolve, ms))
+
+      const subFlow = createFlow([
+        () => delay(1000).then(() => console.log('c')),
+      ])
+
+      createFlow([
+        () => console.log('a'),
+        () => console.log('b'),
+        subFlow,
+        [
+          () => delay(1000).then(() => console.log('d')),
+          () => console.log('e'),
+        ],
+      ]).run(() => {
+        console.log('done')
+      })
+    </script>
+  </body>
+</html>
