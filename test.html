@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <script>
+      var medianSlidingWindow = function (nums, k) {
+        let left = 0
+        let right = k - 1
+        let res = []
+        let fn
+        if (k % 2 === 0) {
+          fn = (left, right) => {
+            let arr = nums.slice(left, right + 1).sort((a, b) => a - b)
+            let c = Math.floor((k - 1) / 2)
+            return (arr[c] + arr[c + 1]) / 2
+          }
+        } else {
+          fn = (left, right) => {
+            let arr = nums.slice(left, right + 1).sort((a, b) => a - b)
+            return arr[(k - 1) / 2]
+          }
+        }
+        while (right < nums.length) {
+          res.push(fn(left, right))
+          left++
+          right++
+        }
+        return res
+      }
+      console.log(medianSlidingWindow([1, 3, -1, -3, 5, 3, 6, 7], 3))
+    </script>
+  </body>
+</html>
