@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <script>
+      var guessNumber = function (n) {
+        let left = 1
+        let right = n
+        while (left <= right) {
+          let mid = Math.floor((right - left + 1) / 2) + left - 1
+          let r = guess(mid)
+          if (r == 0) {
+            return mid
+          } else if (r == 1) {
+            left = mid + 1
+          } else {
+            right = mid - 1
+          }
+        }
+      }
+      let res=guessNumber(10)
+      console.log(res);
+    </script>
+  </body>
+</html>

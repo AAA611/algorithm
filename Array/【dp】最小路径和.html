@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <script>
+      var minPathSum = function (grid) {
+        // dp[i][j] = Math.min(dp[i - 1][j], dp[i][j - 1]) + dp[i][j]
+        let dp = []
+        let m = grid.length - 1
+        let n = grid[0].length - 1
+        for (let i = 0; i < grid.length; i++) {
+          let arr = grid[i]
+          if (!dp[i]) {
+            dp[i] = []
+          }
+          for (let j = 0; j < arr.length; j++) {
+            if (i === 0 && j === 0) {
+              dp[i][j] = grid[i][j]
+            } else if (i === 0) {
+              dp[i][j] = dp[i][j - 1] + grid[i][j]
+            } else if (j === 0) {
+              dp[i][j] = dp[i - 1][j] + grid[i][j]
+            } else {
+              dp[i][j] = Math.min(dp[i - 1][j], dp[i][j - 1]) + grid[i][j]
+            }
+          }
+        }
+        return dp[m][n]
+      }
+      console.log(
+        minPathSum([
+          [1, 2, 3],
+          [4, 5, 6],
+        ]),
+      )
+    </script>
+  </body>
+</html>

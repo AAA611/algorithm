@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <script>
+      new Promise((resolve, reject) => {
+        resolve()
+      })
+        .then(() => {
+          console.log('w1')
+          new Promise((resolve, reject) => {
+            resolve()
+          })
+            .then(() => {
+              console.log('n1')
+            })
+            .then(() => {
+              console.log('n2')
+            })
+            .then(() => {
+              console.log('n3')
+            })
+            .then(() => {
+              console.log('n4')
+            })
+            .then(() => {
+              console.log('n5')
+            })
+        })
+        .then(() => {
+          new Promise((resolve, reject) => {
+            resolve()
+          })
+          console.log('w2')
+        })
+    </script>
+  </body>
+</html>

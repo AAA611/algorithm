@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <script>
+      var rotate = function (matrix) {
+        let res = []
+        for (let i = 0; i < matrix.length; i++) {
+          res.push([])
+        }
+        console.log(res[0] === res[1])
+        let c = 0
+        for (let i = 0; i < matrix.length; i++) {
+          let arr = matrix[i]
+          for (let j = arr.length - 1; j >= 0; j--) {
+            res[j].unshift(arr[j])
+          }
+        }
+        return res
+      }
+      let list = [
+        [1, 2, 3],
+        [4, 5, 6],
+        [7, 8, 9],
+      ]
+      console.log(rotate(list))
+    </script>
+  </body>
+</html>
