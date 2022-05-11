@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <script>
+      /**
+       * @param {number[]} nums
+       * @param {number} k
+       * @return {number}
+       */
+      var subarraySum = function (nums, k) {
+        let left = 0
+        let right
+        let sum
+        let count = 0
+        while (left < nums.length) {
+          right = left
+          sum = 0
+          while (right < nums.length) {
+            sum += nums[right]
+            if (sum === k) {
+              count++
+            }
+            right++
+          }
+          left++
+        }
+        return count
+      }
+      // let count = subarraySum([1], 0)
+      // console.log('[ count ] >', count)
+
+      // 使用hash表优化
+      var subarraySum1 = function (nums, k) {
+        let count = 0
+        for (let start = 0; start < nums.length; start++) {
+          let sum = 0
+          for (let end = start; end >= 0; end--) {
+            sum += nums[end]
+            if (sum === k) {
+              count++
+            }
+          }
+        }
+        return count
+      }
+
+      // TODO:理解
+      var subarraySum2 = function (nums, k) {
+        const mp = new Map()
+        mp.set(0, 1)
+        let count = 0,
+          pre = 0
+        for (const x of nums) {
+          pre += x
+          if (mp.has(pre - k)) {
+            count += mp.get(pre - k)
+          }
+          console.log(mp);
+          if (mp.has(pre)) {
+            mp.set(pre, mp.get(pre) + 1)
+          } else {
+            mp.set(pre, 1)
+          }
+        }
+        return count
+      }
+      let r = subarraySum2([3, 4, 7, 2, -3, 1, 4, 2], 7)
+      console.log('r', r)
+    </script>
+  </body>
+</html>
