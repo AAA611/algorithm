@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <script>
+      let nums = [2, 3, 1, 1, 4]
+      var jump = function (nums) {
+        let dp = Array(nums.length).fill(0)
+        for (let i = nums.length - 2; i >= 0; i--) {
+          dp[i] = Math.min(...dp.slice(i + 1, i + 1 + nums[i])) + 1
+        }
+        return dp[0]
+      }
+      console.log(jump(nums))
+    </script>
+  </body>
+</html>
