@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <script>
+      let arr1 = [1, 2, 3, 2]
+      let arr2 = [3, 2, 2, 2]
+      function isSame(arr1, arr2) {
+        let len1 = arr1.length
+        let len2 = arr2.length
+        if (len1 !== len2) {
+          return false
+        }
+        let map = new Map()
+        for (let i = 0; i < len1; i++) {
+          let c = arr1[i]
+          let val = map.get(c)
+          if (val) {
+            map.set(c, val + 1)
+          } else {
+            map.set(c, 1)
+          }
+        }
+        for (let i = 0; i < len2; i++) {
+          let c = arr2[i]
+          let val = map.get(c)
+          if (val) {
+            if (val === 1) {
+              map.delete(c)
+            } else {
+              map.set(c, val - 1)
+            }
+          } else {
+            return false
+          }
+        }
+        return true
+      }
+      // 时间O(n)
+      // 空间O(n)
+
+      console.log(isSame(arr1, arr2))
+    </script>
+  </body>
+</html>
