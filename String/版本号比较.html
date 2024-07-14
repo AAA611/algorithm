@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+
+<body>
+  <script>
+    /**
+ * @param {string} version1
+ * @param {string} version2
+ * @return {number}
+ */
+    var compareVersion = function (version1, version2) {
+      const versionStrList1 = version1.split('.')
+      const versionStrList2 = version2.split('.')
+      const maxLen = Math.max(versionStrList1.length, versionStrList2.length)
+      let index = 0
+      while (index < maxLen) {
+        v1 = Number(versionStrList1[index]) || 0
+        v2 = Number(versionStrList2[index]) || 0
+        if (v1 > v2) {
+          return 1
+        } else if (v1 < v2) {
+          return -1
+        } else {
+          index++
+        }
+      }
+      return 0
+    };
+
+    // 思路：分割版本号字符串，从左到右一次比较
+  </script>
+</body>
+
+</html>
