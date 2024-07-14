@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+
+<body>
+  <script>
+    /**
+ * @param {TreeNode} root
+ * @return {number[]}
+ */
+    var rightSideView = function (root) {
+      if (!root) return []
+      const res = []
+      const nodes = [root]
+      while (nodes.length) {
+        const len = nodes.length
+        res.push(nodes[nodes.length - 1].val)
+        for (let i = 0; i < len; i++) {
+          const node = nodes.shift()
+          if (node.left) {
+            nodes.push(node.left)
+          }
+          if (node.right) {
+            nodes.push(node.right)
+          }
+        }
+      }
+      return res
+    };
+
+    // 📘思路：通过逐层遍历，取每一层的最右侧节点即可
+  </script>
+</body>
+
+</html>
