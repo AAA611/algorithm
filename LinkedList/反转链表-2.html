@@ -16,23 +16,22 @@
       let prev = null
       let next = null
       let leftPrev = null
-      let rightNext = null
       let leftNode = null
       let rightNode = null
+      let rightNext = null
       let index = 0
       while (cur) {
         index++
         next = cur.next
-        if (index === right) {
-          rightNode = cur
-          rightNext = cur.next
-        }
         if (index === left) {
           leftNode = cur
           leftPrev = prev
-          cur.next = null
         }
-        if (index > left && index <= right) {
+        if (index === right) {
+          rightNode = cur
+          rightNext = next
+        }
+        if (index >= left && index <= right) {
           cur.next = prev
         }
         prev = cur
