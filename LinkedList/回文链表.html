@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+
+<body>
+  <script>
+    var isPalindrome = function (head) {
+      let cur = head
+      const values = []
+      while (cur) {
+        values.push(cur.val)
+        cur = cur.next
+      }
+
+      let left = 0
+      let right = values.length - 1
+      while (left <= right) {
+        if (values[left] !== values[right]) {
+          return false
+        }
+        left++
+        right--
+      }
+      return true
+    };
+
+    // 📘思路：遍历链表，使用一个数组按照遍历顺序存储值，然后使用双指针判断是否是回文
+  </script>
+</body>
+
+</html>
