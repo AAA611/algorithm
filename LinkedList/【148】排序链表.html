@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+
+<body>
+  <script>
+    var sortList = function (head) {
+      if (!head) return null
+      let cur = head
+      const values = []
+      while (cur) {
+        values.push(cur.val)
+        cur = cur.next
+      }
+      values.sort((a, b) => a - b)
+      let sortedHead = new ListNode(values[0])
+      cur = sortedHead
+      for (let i = 1; i < values.length; i++) {
+        cur.next = new ListNode(values[i])
+        cur = cur.next
+      }
+      return sortedHead
+    };
+
+    // 📘思路：先遍历链表把 val 存到数组中，再给数组排序，最后根据排序后的数组构建新的链表并返回新链表
+  </script>
+</body>
+
+</html>
