@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+
+<body>
+  <script>
+    var deleteNode = function (node) {
+      const next = node.next
+      node.next = next.next
+      node.val = next.val
+    };
+
+    // 📘思路：改变节点中的 val
+  </script>
+</body>
+
+</html>
